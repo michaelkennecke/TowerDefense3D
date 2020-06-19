@@ -5,9 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Nexus
-  - Zombie
-  - FirePoint
-  - Projectile
+  - Enemy
   layers:
   - Default
   - TransparentFX

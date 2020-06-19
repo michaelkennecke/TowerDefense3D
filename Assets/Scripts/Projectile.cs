@@ -4,43 +4,61 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] PlayerController playerController;
-    [SerializeField] private const float speed = 10.0f;
+    [SerializeField] int _damage = 1;
+    [SerializeField] float _speed = 10f;
+    
+    Rigidbody _rigidbody;
+    Damagable _target;
+    GameObject _shooter;
+    Transform _targetTransform;
 
-    private Transform startPoint;
-    private Transform target;
+    Skill _skill;
 
-    void Update()
-    {
-        if (startPoint != null && target != null)
+    void Awake(){
+        this._rigidbody = GetComponent<Rigidbody>();
+    }
+    public Projectile Init(Damagable target, GameObject shooter, Skill skill){
+        this._skill = skill;
+        if (this._skill.damageEffect <= 0)
         {
-            this.MoveToTarget();
+            this._target = shooter.gameObject.GetComponent<Damagable>();
+        }
+        else
+        {
+            if (shooter.gameObject.Equals(target.gameObject))
+            {
+                this._target = null;
+            }
+            else
+            {
+                this._target = target;
+            }
+        }
+        this._shooter = shooter;
+        this._targetTransform = target.transform;
+        return this;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Enemy") && this._shooter.CompareTag("Enemy"))
+        {
+            return;
+        }
+
+        Damagable enemy = other.GetComponent<Damagable>();
+        if (enemy)
+        {
+            enemy.Hit(this._skill.damageEffect);
+            Destroy(gameObject);
         }
     }
 
-    public void StartMoving(Transform startPoint, Transform target, PlayerController playerController)
-    {
-        this.startPoint = startPoint;
-        this.target = target;
-        this.playerController = playerController;
-    }
-
-    private void MoveToTarget()
-    {
-        Vector3 targetDirection = target.position - startPoint.position;
-        float step = speed * Time.deltaTime;
-        Vector3 newDirection = Vector3.RotateTowards(transform.forward, targetDirection, step, 0.0f);
-        Debug.DrawRay(transform.position, newDirection, Color.red);
-        transform.rotation = Quaternion.LookRotation(newDirection);
-        transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Zombie"))
-        {
-            this.gameObject.SetActive(false);
-            playerController.GetComponent<PlayerController>().coolDown = false;
-        }   
+    void FixedUpdate(){
+        if(this._target == null || this._target.isActiveAndEnabled == false){
+            Destroy(gameObject);
+            return;
+        } 
+        this._rigidbody.MovePosition(this._rigidbody.position + (this._targetTransform.position - this._rigidbody.position).normalized * Time.fixedDeltaTime * this._skill.projectileSpeed);
     }
 }
