@@ -6,46 +6,34 @@ public class Damagable : MonoBehaviour
 {
     [SerializeField] int _hp = 5;
     [SerializeField] Explosion _explosion;
+    [SerializeField] bool _destroyObjectOnDeath = true;
     int _currentHP;
     public float HealthRatio => (float)this._currentHP / (float)this._hp;
 
-    [SerializeField] bool respawn;
-    [SerializeField] int respawnTime;
-
-    void Start()
-    {
+    void Start(){
         this._currentHP = this._hp;
     }
-    public void Hit(int damage)
-    {
-        this._currentHP-= damage;
+    void OnEnable() {
+        this.Start();    
+    }
+    public void Hit(int damage){
+        
+        this._currentHP = Mathf.Clamp(this._currentHP - damage, 0, this._hp);
         if(this._currentHP <= 0)
             this.Die();
     }
-
-    public void Hit()
-    {
+    public void Hit(){
         Hit(1);
     }
 
-    public void Die()
-    {
+    public void Die(){
         Instantiate(this._explosion.gameObject, transform.position, Quaternion.identity);
-        if (respawn == false)
-        {
+        if(this._destroyObjectOnDeath){
             Destroy(gameObject);
+            GameObject.FindGameObjectWithTag("SkillBar").GetComponent<SkillBarUI>().EnableUpgade();
+        }else{
+            gameObject.SetActive(false);
         }
-        else
-        {
-            this.gameObject.SetActive(false);
-            Invoke("Respawn", this.respawnTime);
-        }
-    }
-
-    public void Respawn()
-    {
-        this._currentHP = this._hp;
-        transform.position = GameObject.FindGameObjectWithTag("Nexus").transform.position;
-        this.gameObject.SetActive(true);
+        
     }
 }

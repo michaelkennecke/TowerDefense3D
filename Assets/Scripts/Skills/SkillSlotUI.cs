@@ -1,46 +1,44 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class SkillSlotUI : MonoBehaviour
 {
-    // FFFF00
+    [SerializeField] Image _icon;
+    [SerializeField] Image _chosenFrame;
+    [SerializeField] TextMeshProUGUI _numberDisplay;
+    int _number;
+    Controller _controller;
+    public Skill _skill{get;set;}
+    public delegate void OnExecute(int number);
+    public OnExecute onExecute;
 
-    private Controller _controller;
-    private int _skillId;
-    private Skill _skill;
-    private SkillBarUI _skillBarUI;
-    private Transform _transform;
-
-    public SkillSlotUI Init(Controller controller, int skillId, Skill skill, SkillBarUI skillBarUI)
-    {
+    public SkillSlotUI Init(Controller controller, int number, Skill skill){
         this._controller = controller;
-        this._skillId = skillId;
+        this._number = number;
+        this._numberDisplay.text = this._number.ToString();
         this._skill = skill;
-        this._skillBarUI = skillBarUI;
-        this.transform.SetParent(skillBarUI.gameObject.transform, false);
-        this.GetComponent<Button>().GetComponent<Image>().sprite = skill.skillSprite;
+        this._icon.sprite = this._skill._icon;
         return this;
     }
 
-    public void SwichtSkill()
-    {
-        this._skillBarUI.SetDefaultColorForButtons();
-        this._controller.SwitchSkill(this._skillId);
-        this.SwitchColor(Color.gray);
+    public void OnClick(){
+        if(this.onExecute != null)
+            this.onExecute.Invoke(this._number);
     }
 
-    public void ClickSkillButton()
-    {
-        this.gameObject.GetComponent<Button>().onClick.Invoke();
+    public void Activate(){
+        this._chosenFrame.gameObject.SetActive(true);
+    }
+    public void Deactivate(){
+        this._chosenFrame.gameObject.SetActive(false);
     }
 
-    public void SwitchColor(Color color)
-    {
-        ColorBlock colors = this.GetComponent<Button>().colors;
-        colors.normalColor = color;
-        this.GetComponent<Button>().colors = colors;
+    void Update(){
+        if(Input.GetKeyDown(this._number.ToString()))
+            this.OnClick();
     }
+
 }

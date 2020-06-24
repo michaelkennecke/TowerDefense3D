@@ -9,12 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2756aca3d18347bf8922bf410487154, type: 3}
+  m_Script: {fileID: 11500000, guid: 62c5fc3f62c80cf41aeb874be01f7b9e, type: 3}
   m_Name: Heal
   m_EditorClassIdentifier: 
-  damageEffect: -1
-  range: 0
-  projectileSpeed: 10
-  projectilePrefab: {fileID: 3482447822599838037, guid: 16a6dc8b972ca204996ebdbede5769d0,
+  _damageEffect: -5
+  _range: 10
+  _projectileSpeed: 10
+  _projectilePrefab: {fileID: 3482447822599838037, guid: 16a6dc8b972ca204996ebdbede5769d0,
     type: 3}
-  skillSprite: {fileID: 21300000, guid: a203f00da8cdf47bd89b61a0bf2ada26, type: 3}
+  _icon: {fileID: 21300000, guid: aa0ae0514e26ced4687e658ff7e701d9, type: 3}
+  _audio: {fileID: 2076656904256773706, guid: 4e3c0c47e4d9747bc84f94aed7301312, type: 3}
+  _attackSpeed: 1.5

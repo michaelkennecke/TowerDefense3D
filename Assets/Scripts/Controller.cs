@@ -12,28 +12,37 @@ public class Controller : MonoBehaviour
     [SerializeField] Projectile _projectilePrefab;
     [SerializeField] Transform _projectileSpawnPosition;
     [SerializeField] NavMeshAgent _agent;
-    [SerializeField] float _range = 10f;
+    public List<Skill> _skills;
+    public Skill _skill;
     public NavMeshAgent Agent => this._agent;
     [SerializeField] Animator _animator;
     public Animator Animator => this._animator;
 
+    private List<int> _startSkillDamages;
+
     Damagable _target;
+    public Damagable Target => this._target;
     Transform _transform;
 
-    [SerializeField] Skill[] skills = new Skill[3];
-    [SerializeField] SkillBarUI skillBarUI;
-    Skill _currentSkill;
+    public AudioSource _audio;
 
     void Awake() {
-        this._transform = transform;    
+        this._transform = transform;  
+        this._startSkillDamages = new List<int>();
+        for (int i=0; i < this._skills.Count; i++) {
+            this._startSkillDamages.Add(this._skills[i]._damageEffect);
+            Debug.Log("Start value: " + this._startSkillDamages[i]);
+        }
+        //this._audio = this.GetComponent<AudioSource>();
     }
 
     void Start(){
-        this._currentSkill = skills[0];
-        this._range = this._currentSkill.range;
+
     }
 
     public void Move(Vector3 destination){
+        this._animator.speed = 1;
+        if(!isActiveAndEnabled) return;
         this._target = null;
         this._agent.destination = destination;
         this._animator.SetBool("Attacking", false);
@@ -41,27 +50,32 @@ public class Controller : MonoBehaviour
 
     
     public void Attack(Damagable target){
-
+        this._animator.speed = this._skill._attackSpeed;
         this._animator.SetBool("Attacking", true);
         this._target = target;
     }
 
     //invoked via Animation Event in Animator
     public void Shoot(){
+        //just a small hack so if you change the skill while attacking, the attackSpeed gets updated
+        this._animator.speed = this._skill._attackSpeed;
         if(!this._target){
             this._animator.SetBool("Attacking", false);
             return;
-        } 
-        Instantiate(this._projectilePrefab, this._projectileSpawnPosition.position, Quaternion.identity).Init(this._target, this.gameObject, this._currentSkill);
+        }
+        //this._audio = this._skill._audio.GetComponent<AudioSource>();
+        //this._audio.Play();
+        this._skill.Execute(this, this._projectileSpawnPosition.position, this._target);
     }
     
 
     void Update(){
+        if(this._target && !this._target.isActiveAndEnabled) this._target = null;
         //set BlendTree value to a value 0-1 (0 if not moving, 1 if at max speed)
 
         this._animator.SetFloat("Speed", this._agent.velocity.magnitude / this._agent.speed);
         if(this._target != null){
-            this._animator.SetBool("InRange", Vector3.Distance(this._target.transform.position, this._transform.position) <= this._currentSkill.range);
+            this._animator.SetBool("InRange", Vector3.Distance(this._target.transform.position, this._transform.position) <= this._skill._range);
         }
 
         if(this._animator.GetBool("Attacking")){
@@ -73,12 +87,10 @@ public class Controller : MonoBehaviour
             }
             
         }
-
-        this.ListenToSwictchSkillInput();
     }
 
     private void OnDrawGizmos() {
-        Gizmos.DrawWireSphere(transform.position, this._range);
+        Gizmos.DrawWireSphere(transform.position, this._skill._range);
     }
 
     void RotateTowards(Transform target)
@@ -96,32 +108,11 @@ public class Controller : MonoBehaviour
         this._agent.isStopped = false;
     }
 
-    void ListenToSwictchSkillInput()
-    {
-        if (skills.Length <= 1)
-        {
-            return;
+    public void Reset() {
+        Debug.Log("Ich werde erreicht");
+        for (int i=0; i < this._skills.Count; i++) {
+            Debug.Log("End value: " + this._startSkillDamages[i]);
+            this._skills[i]._damageEffect = this._startSkillDamages[i];
         }
-
-        for (int i = 1; i <= skills.Length; ++i)
-        {
-            if (Input.GetKeyDown("" + i))
-            {
-                this.skillBarUI.GetUISkills()[i-1].ClickSkillButton();
-                //this.SwitchSkill(i);
-            }
-        }
-    }
-
-    public void SwitchSkill(int skillId)
-    {
-        Debug.Log("Skill: " + skillId + " ausgewählt");
-        this._currentSkill = skills[skillId - 1];
-        this._range = this._currentSkill.range;
-    }
-
-    public Skill[] GetSkills()
-    {
-        return this.skills;
     }
 }

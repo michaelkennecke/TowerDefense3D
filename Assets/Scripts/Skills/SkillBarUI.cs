@@ -5,34 +5,47 @@ using UnityEngine.UI;
 
 public class SkillBarUI : MonoBehaviour
 {
-
-    [SerializeField] GameObject skillBar;
-    [SerializeField] SkillSlotUI skillSlotUIPrefab;
-
+    [SerializeField] SkillSlotUI _skillSlotPrefab;
     [SerializeField] Controller _controller;
+    [SerializeField] LayoutGroup _layoutGroup;
 
-    SkillSlotUI[] skills;
-    void Start()
-    {
-        int amountOfSkills = this._controller.GetSkills().Length;
-        skills = new SkillSlotUI[amountOfSkills];
-        for (int i = 0; i < amountOfSkills; i++)
+    [SerializeField] SkillUpgradeUI _skillUpgradePrefab;
+    [SerializeField] GameObject _skillUpgradeBar;
+
+    List<SkillSlotUI> _skills;
+    List<SkillUpgradeUI> _skillUpgrades;
+
+    void Start(){
+        this._skills = new List<SkillSlotUI>();
+        this._skillUpgrades = new List<SkillUpgradeUI>();
+        for (int i = 0; i < this._controller._skills.Count; i++)
         {
-            skills[i] = Instantiate(this.skillSlotUIPrefab, this.skillBar.transform.position, Quaternion.identity).Init(this._controller, i + 1, this._controller.GetSkills()[i], this);
+            this._skills.Add(Instantiate(this._skillSlotPrefab, this._layoutGroup.transform).Init(this._controller, i+1, this._controller._skills[i]));
+            this._skillUpgrades.Add(Instantiate(this._skillUpgradePrefab, this._skillUpgradeBar.GetComponent<LayoutGroup>().transform).Init(this._controller, i+1));
+            this._skills[i].onExecute += this.SkillChosen;
         }
-        skills[0].GetComponent<SkillSlotUI>().SwitchColor(Color.gray);
+        this.SkillChosen(1);
     }
 
-    public SkillSlotUI[] GetUISkills()
-    {
-        return this.skills;
-    }
-
-    public void SetDefaultColorForButtons()
-    {
-        for (int i = 0; i < skills.Length; i++)
+    void SkillChosen(int number){
+        this._controller._skill = this._skills[number-1]._skill;
+        //this._controller._audio = this._skills[number-1]._skill._audio.GetComponent<AudioSource>();
+        foreach (SkillSlotUI skillSlot in this._skills)
         {
-            skills[i].GetComponent<SkillSlotUI>().SwitchColor(Color.white);
+            skillSlot.Deactivate();
+        }
+        this._skills[number-1].Activate();
+    }
+
+    public void EnableUpgade() {
+        foreach (SkillUpgradeUI skillUpgrade in this._skillUpgrades) {
+            skillUpgrade.Activate();
+        }
+    }
+
+    public void DisableUpgrade() {
+        foreach (SkillUpgradeUI skillUpgrade in this._skillUpgrades) {
+            skillUpgrade.Deactivate();
         }
     }
 }

@@ -1,5 +1,49 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &570593084792848825
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1683233047089521560}
+  - component: {fileID: 8594144931669115858}
+  m_Layer: 2
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1683233047089521560
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570593084792848825}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 988783089916072334}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &8594144931669115858
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 570593084792848825}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &988783089916038144
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,6 +800,7 @@ Transform:
   - {fileID: 988783089916072332}
   - {fileID: 988783089916072442}
   - {fileID: 2910543787022617902}
+  - {fileID: 1683233047089521560}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -785,10 +830,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f4f39be6e48d664f8a11d9fed4585db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _projectilePrefab: {fileID: 0}
-  _projectileSpawnPosition: {fileID: 0}
+  _projectilePrefab: {fileID: 3482447822599838037, guid: 16a6dc8b972ca204996ebdbede5769d0,
+    type: 3}
+  _projectileSpawnPosition: {fileID: 988783089916072412}
   _agent: {fileID: 7095798643476930484}
   _range: 10
+  _skill: {fileID: 11400000, guid: 7dc4ab5d56ef30643bcfe8eac195ac56, type: 2}
   _animator: {fileID: 988783089923309166}
 --- !u!114 &1222137885790525933
 MonoBehaviour:
@@ -805,6 +852,7 @@ MonoBehaviour:
   _hp: 5
   _explosion: {fileID: 2675823247124536568, guid: 9937cef2361c25f49ac58e012f4b6dce,
     type: 3}
+  _destroyObjectOnDeath: 1
 --- !u!95 &988783089923309166
 Animator:
   serializedVersion: 3
@@ -854,7 +902,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 988783089916038574}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.71
   m_Height: 4.49

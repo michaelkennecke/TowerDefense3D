@@ -12,11 +12,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ZombieB
       objectReference: {fileID: 0}
-    - target: {fileID: 988783089916038574, guid: f483a9742cfb31344a4cc4373d006f2b,
-        type: 3}
-      propertyPath: m_TagString
-      value: Enemy
-      objectReference: {fileID: 0}
     - target: {fileID: 988783089916072334, guid: f483a9742cfb31344a4cc4373d006f2b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -77,38 +72,17 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: b25c6403a47db514ab6f7fe4a07865cc, type: 2}
-    - target: {fileID: 7416558150777186391, guid: f483a9742cfb31344a4cc4373d006f2b,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8136455247028900175, guid: f483a9742cfb31344a4cc4373d006f2b,
         type: 3}
-      propertyPath: skills.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8136455247028900175, guid: f483a9742cfb31344a4cc4373d006f2b,
-        type: 3}
-      propertyPath: _projectileSpawnPosition
+      propertyPath: _skill
       value: 
-      objectReference: {fileID: 2407155779493169247}
-    - target: {fileID: 8136455247028900175, guid: f483a9742cfb31344a4cc4373d006f2b,
-        type: 3}
-      propertyPath: _projectilePrefab
-      value: 
-      objectReference: {fileID: 3482447822599838037, guid: 16a6dc8b972ca204996ebdbede5769d0,
-        type: 3}
-    - target: {fileID: 8136455247028900175, guid: f483a9742cfb31344a4cc4373d006f2b,
-        type: 3}
-      propertyPath: skills.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 2e02af010edc64136899b87123001b22,
+      objectReference: {fileID: 11400000, guid: 6bc118ff8e24b154fa59c2d95afa0db1,
         type: 2}
+    - target: {fileID: 8136455247028900175, guid: f483a9742cfb31344a4cc4373d006f2b,
+        type: 3}
+      propertyPath: _audio
+      value: 
+      objectReference: {fileID: 2076656904256773706, guid: 4e3c0c47e4d9747bc84f94aed7301312,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f483a9742cfb31344a4cc4373d006f2b, type: 3}
---- !u!4 &2407155779493169247 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 988783089916072404, guid: f483a9742cfb31344a4cc4373d006f2b,
-    type: 3}
-  m_PrefabInstance: {fileID: 3233359780066384267}
-  m_PrefabAsset: {fileID: 0}
