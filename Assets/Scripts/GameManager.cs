@@ -43,9 +43,10 @@ public class GameManager : MonoBehaviour
     }
 
     void CheckNexusLife(int maxlife, int currentLife){
-        if(currentLife <= 0)
+        if(currentLife <= 0) {
             Score.SetWinOrLoss(false);
             this._sceneController.ToEndMenu();
             Debug.Log("Loss");
+        }            
     }
 }

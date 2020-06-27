@@ -20,7 +20,6 @@ public class Nexus : MonoBehaviour
         if(enemy){
             Destroy(enemy.gameObject);
             this._playerLive--;
-
             if(this._onLifeLoss != null)
                 this._onLifeLoss.Invoke(this._maxLive, this._playerLive);
             

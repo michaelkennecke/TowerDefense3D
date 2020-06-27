@@ -18,5 +18,5 @@ MonoBehaviour:
   _projectilePrefab: {fileID: 3482447822599838037, guid: 16a6dc8b972ca204996ebdbede5769d0,
     type: 3}
   _icon: {fileID: 21300000, guid: b173144afa0c05d49a3fff92ff344ee3, type: 3}
-  _audio: {fileID: 2076656904256773706, guid: 4e3c0c47e4d9747bc84f94aed7301312, type: 3}
+  _audioClip: {fileID: 8300000, guid: 5dac2edb93d694003a5d7ce2c6f1a208, type: 3}
   _attackSpeed: 1

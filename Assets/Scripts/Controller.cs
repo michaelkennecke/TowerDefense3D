@@ -33,11 +33,10 @@ public class Controller : MonoBehaviour
             this._startSkillDamages.Add(this._skills[i]._damageEffect);
             Debug.Log("Start value: " + this._startSkillDamages[i]);
         }
-        //this._audio = this.GetComponent<AudioSource>();
     }
 
-    void Start(){
-
+    void Start() {
+        this._audio = this.GetComponent<AudioSource>();
     }
 
     public void Move(Vector3 destination){
@@ -63,8 +62,8 @@ public class Controller : MonoBehaviour
             this._animator.SetBool("Attacking", false);
             return;
         }
-        //this._audio = this._skill._audio.GetComponent<AudioSource>();
-        //this._audio.Play();
+        this._audio.clip = this._skill._audioClip;
+        this._audio.Play();
         this._skill.Execute(this, this._projectileSpawnPosition.position, this._target);
     }
     
@@ -85,7 +84,6 @@ public class Controller : MonoBehaviour
             }else{
                 this._animator.SetBool("Attacking", false);
             }
-            
         }
     }
 
@@ -109,7 +107,6 @@ public class Controller : MonoBehaviour
     }
 
     public void Reset() {
-        Debug.Log("Ich werde erreicht");
         for (int i=0; i < this._skills.Count; i++) {
             Debug.Log("End value: " + this._startSkillDamages[i]);
             this._skills[i]._damageEffect = this._startSkillDamages[i];

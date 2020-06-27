@@ -17,6 +17,9 @@ public class SceneController : MonoBehaviour
    }
 
    public void LoadScene(string sceneName) {
+       if (sceneName == "Game") {
+           Score.Reset();
+       }
        SceneManager.LoadScene(sceneName);
    }
 

@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{4B9E6D9F-EBCF-EC6D-D5E1-A64EBA309630}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Projectile.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Library/PackageCache/com.unity.shadergraph@7.1.8/Editor/Drawing/MaterialGraphEditWindow.cs">
     <Files>
       <File FileName="Assets/Scripts/Enemy.cs" Line="18" Column="31" />
       <File FileName="Assets/Scripts/Damagable.cs" />
@@ -9,6 +9,7 @@
       <File FileName="Assets/Scripts/Controller.cs" />
       <File FileName="Assets/Scripts/Skills/SkillBarUI.cs" />
       <File FileName="Assets/Scripts/Skills/SkillSlotUI.cs" />
+      <File FileName="Library/PackageCache/com.unity.shadergraph@7.1.8/Editor/Drawing/MaterialGraphEditWindow.cs" Line="99" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -27,7 +28,7 @@
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="6f849026-fa1f-4f8b-8447-76829dae32a6" />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="1f6c0ea9-480a-4375-916e-e230ed9b0b02" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
