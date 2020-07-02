@@ -20,11 +20,15 @@ public class SkillBarUI : MonoBehaviour
         this._skillUpgrades = new List<SkillUpgradeUI>();
         for (int i = 0; i < this._controller._skills.Count; i++)
         {
-            this._skills.Add(Instantiate(this._skillSlotPrefab, this._layoutGroup.transform).Init(this._controller, i+1, this._controller._skills[i]));
-            this._skillUpgrades.Add(Instantiate(this._skillUpgradePrefab, this._skillUpgradeBar.GetComponent<LayoutGroup>().transform).Init(this._controller, i+1));
-            this._skills[i].onExecute += this.SkillChosen;
+            this.AddSkill(i);
         }
         this.SkillChosen(1);
+    }
+
+    public void AddSkill(int i) {
+        this._skills.Add(Instantiate(this._skillSlotPrefab, this._layoutGroup.transform).Init(this._controller, i+1, this._controller._skills[i]));
+        this._skillUpgrades.Add(Instantiate(this._skillUpgradePrefab, this._skillUpgradeBar.GetComponent<LayoutGroup>().transform).Init(this._controller, i+1));
+        this._skills[i].onExecute += this.SkillChosen;
     }
 
     void SkillChosen(int number){

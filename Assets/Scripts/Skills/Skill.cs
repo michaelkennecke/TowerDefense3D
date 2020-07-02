@@ -12,6 +12,7 @@ public class Skill : ScriptableObject
     public Sprite _icon;
 
     public AudioClip _audioClip;
+    public int _price;
     
     //Not needed in task ;) the higher the attackSpeed, the faster the Animator plays -> we cann Shoot more often in the Controller
     [Range(0.1f,10f)] public float _attackSpeed = 1f;

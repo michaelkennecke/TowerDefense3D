@@ -18,13 +18,17 @@ public class Controller : MonoBehaviour
     [SerializeField] Animator _animator;
     public Animator Animator => this._animator;
 
-    private List<int> _startSkillDamages;
+    public List<int> _startSkillDamages;
 
     Damagable _target;
     public Damagable Target => this._target;
     Transform _transform;
 
+    public int _money; 
+
     public AudioSource _audio;
+
+    public Shop _shop;
 
     void Awake() {
         this._transform = transform;  
@@ -85,6 +89,14 @@ public class Controller : MonoBehaviour
                 this._animator.SetBool("Attacking", false);
             }
         }
+
+        if(Input.GetKeyDown("b") && this.gameObject.CompareTag("Player")) {
+            if (!this._shop.gameObject.activeInHierarchy) {
+                this._shop.gameObject.SetActive(true);
+            } else {
+                this._shop.gameObject.SetActive(false);
+            }
+        }
     }
 
     private void OnDrawGizmos() {
@@ -107,6 +119,7 @@ public class Controller : MonoBehaviour
     }
 
     public void Reset() {
+        Money.Reset();
         for (int i=0; i < this._skills.Count; i++) {
             Debug.Log("End value: " + this._startSkillDamages[i]);
             this._skills[i]._damageEffect = this._startSkillDamages[i];

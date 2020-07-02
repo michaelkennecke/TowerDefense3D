@@ -5,6 +5,7 @@ using UnityEngine;
 public class Damagable : MonoBehaviour
 {
     [SerializeField] int _hp = 5;
+    [SerializeField] int _coins = 5;
     [SerializeField] Explosion _explosion;
     [SerializeField] bool _destroyObjectOnDeath = true;
     int _currentHP;
@@ -31,6 +32,7 @@ public class Damagable : MonoBehaviour
         if(this._destroyObjectOnDeath){
             Destroy(gameObject);
             GameObject.FindGameObjectWithTag("SkillBar").GetComponent<SkillBarUI>().EnableUpgade();
+            Money.AddMoney(this._coins);
         }else{
             gameObject.SetActive(false);
         }
